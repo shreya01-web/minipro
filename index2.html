@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Online Quiz App</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap');
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .container {
+      background: #fff;
+      width: 100%;
+      max-width: 350px;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+      min-height: 420px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    h2 {
+      margin-top: 0;
+      font-weight: 600;
+      color: #4b2cc1;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    form { display: flex; flex-direction: column; }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      font-size: 0.9rem;
+    }
+    input[type="text"], input[type="email"], input[type="password"] {
+      padding: 0.7rem 1rem;
+      margin-bottom: 1rem;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    input:focus {
+      border-color: #764ba2;
+      outline: none;
+    }
+    button, .btn-link {
+      padding: 0.8rem;
+      background: #764ba2;
+      color: #fff;
+      border: none;
+      font-weight: 600;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+    button:hover, .btn-link:hover { background: #5a3682; }
+    .btn-link {
+      background: none;
+      color: #764ba2;
+      border: none;
+      font-size: 0.9rem;
+      text-decoration: underline;
+    }
+    .form-section { display: none; flex-direction: column; }
+    .form-section.active { display: flex; }
+    .error {
+      color: #d93025;
+      font-size: 0.8rem;
+      margin-top: -0.8rem;
+      margin-bottom: 1rem;
+      min-height: 18px;
+    }
+    .welcome-message {
+      font-size: 1.2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #4b2cc1;
+    }
+    .start-btn-container {
+      margin-top: auto;
+      text-align: center;
+    }
+    
+    
+    
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- Registration Form -->
+    <section id="register-section" class="form-section active"> 
+      <h2>Create Account</h2>
+      <form id="register-form" novalidate>
+        <label for="reg-username">Username</label>
+        <input type="text" id="reg-username" name="username" required minlength="3" autocomplete="username" />
+        <div class="error" id="reg-username-error"></div>
+
+        <label for="reg-email">Email</label>
+        <input type="email" id="reg-email" name="email" required autocomplete="email" />
+        <div class="error" id="reg-email-error"></div>
+
+        <label for="reg-password">Password</label>
+        <input type="password" id="reg-password" name="password" required minlength="6" autocomplete="new-password" />
+        <div class="error" id="reg-password-error"></div>
+
+        <button type="submit">Register</button>
+      </form>
+      <button id="to-login-btn" class="btn-link">Already have an account? Login</button>
+    </section>
+
+    <!-- Login Form -->
+    <section id="login-section" class="form-section">
+      <h2>Login</h2>
+      <form id="login-form" novalidate>
+        <label for="login-username">Username or Email</label>
+        <input type="text" id="login-username" name="username" required autocomplete="username" />
+        <div class="error" id="login-username-error"></div>
+
+        <label for="login-password">Password</label>
+        <input type="password" id="login-password" name="password" required autocomplete="current-password" />
+        <div class="error" id="login-password-error"></div>
+
+        <button type="submit">Login</button>
+      </form>
+      <button id="to-register-btn" class="btn-link">Don't have an account? Register</button>
+    </section>
+
+    <!-- Home Section -->
+    <section id="home-section" class="form-section">
+      <h2>Welcome to Online Quiz</h2>
+      <p class="welcome-message" id="welcome-message"></p>
+      <div class="start-btn-container">
+        <button class="start-btn">Start Quiz</button>
+        
+      </div>
+    </section>
+
+  </div>
+
+  <script>
+    const registerSection = document.getElementById('register-section');
+    const loginSection = document.getElementById('login-section');
+    const homeSection = document.getElementById('home-section');
+
+    const toLoginBtn = document.getElementById('to-login-btn');
+    const toRegisterBtn = document.getElementById('to-register-btn');
+
+    const registerForm = document.getElementById('register-form');
+    const loginForm = document.getElementById('login-form');
+    const welcomeMessage = document.getElementById('welcome-message');
+
+    function showSection(section) {
+      [registerSection, loginSection, homeSection].forEach(s => s.classList.remove('active'));
+      section.classList.add('active');
+      clearErrors();
+      clearForms();
+    }
+
+    function clearForms() {
+      registerForm.reset();
+      loginForm.reset();
+    }
+
+    function clearErrors() {
+      document.querySelectorAll('.error').forEach(e => e.textContent = '');
+    }
+
+    toLoginBtn.addEventListener('click', () => showSection(loginSection));
+    toRegisterBtn.addEventListener('click', () => showSection(registerSection));
+
+    const USERS_KEY = "online_quiz_users";
+
+    function validateEmail(email) {
+      const re = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+      return re.test(email.toLowerCase());
+    }
+
+    let currentUser = null;
+
+    registerForm.addEventListener('submit', e => {
+      e.preventDefault();
+      clearErrors();
+      let valid = true;
+
+      const username = registerForm.username.value.trim();
+      const email = registerForm.email.value.trim().toLowerCase();
+      const password = registerForm.password.value.trim();
+
+      if (username.length < 3) {
+        document.getElementById('reg-username-error').textContent = 'Username must be at least 3 characters.';
+        valid = false;
+      }
+      if (!validateEmail(email)) {
+        document.getElementById('reg-email-error').textContent = 'Please enter a valid email.';
+        valid = false;
+      }
+      if (password.length < 6) {
+        document.getElementById('reg-password-error').textContent = 'Password must be at least 6 characters.';
+        valid = false;
+      }
+      if (!valid) return;
+
+      let users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+      if (users.find(u => u.username.toLowerCase() === username.toLowerCase())) {
+        document.getElementById('reg-username-error').textContent = 'Username already taken.';
+        return;
+      }
+      if (users.find(u => u.email === email)) {
+        document.getElementById('reg-email-error').textContent = 'Email already registered.';
+        return;
+      }
+
+      users.push({username, email, password});
+      localStorage.setItem(USERS_KEY, JSON.stringify(users));
+
+      alert('Registration successful! Please login.');
+      showSection(loginSection);
+    });
+
+    loginForm.addEventListener('submit', e => {
+      e.preventDefault();
+      clearErrors();
+      let valid = true;
+
+      const inputUsername = loginForm.username.value.trim().toLowerCase();
+      const password = loginForm.password.value.trim();
+
+      if (!inputUsername) {
+        document.getElementById('login-username-error').textContent = 'Enter username or email.';
+        valid = false;
+      }
+      if (!password) {
+        document.getElementById('login-password-error').textContent = 'Enter password.';
+        valid = false;
+      }
+      if (!valid) return;
+
+      let users = JSON.parse(localStorage.getItem(USERS_KEY)) || [];
+      const user = users.find(u =>
+        (u.username.toLowerCase() === inputUsername || u.email === inputUsername) &&
+        u.password === password
+      );
+
+      if (!user) {
+        document.getElementById('login-password-error').textContent = 'Invalid login credentials.';
+        return;
+      }
+
+      currentUser = user;
+      welcomeMessage.textContent = `Hello, ${user.username}! Lets Start the Quiz`;
+      showSection(homeSection);
+    });
+
+    // Load register section on start
+    showSection(registerSection);
+    
+
+    
+  </script>
+
+  <div class = "scrollable">
+    
+  </div>
+
+<div class="quiz-container">
+    <h1>MINDMAZE MASTERS</h1>
+    <div class="timer">Time left: 30 seconds</div>
+    <h2 class="question"></h2>
+    <div class="options"></div>
+    <button class="next-btn">Next</button>
+  </div>
+  
+  <div class="quiz-result"></div>
+
+
+ <script src="main.js"></script>
+
+  
+</body>
+</html>

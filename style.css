@@ -1,0 +1,224 @@
+.quiz-container {
+  font-family: "Roboto",'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 30px;
+  display: none;
+  color:whitesmoke;
+  font-size:30px;
+}
+
+.quiz-container .timer {
+  color:aquamarine;
+  font-weight: bold;
+  text-align: right;
+  font-size:20px;
+}
+
+.timer.danger {
+  color: red;
+}
+
+.quiz-container h2.question {
+  font-size: 20px;
+  background: #d0ecff;
+  padding: 16px;
+  border-radius: 8px;
+  font-weight: normal;
+  line-height: 1.6;
+}
+
+.quiz-container .options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.quiz-container .option {
+  border: none;
+  padding: 24px 32px;
+  font-size: 18px;
+  background: #1d3557;
+  color: #fff;
+}
+
+.quiz-container button {
+  cursor: pointer;
+}
+
+.disabled {
+  pointer-events: none;
+}
+
+.option.correct {
+  background: #51e351;
+  color: #222;
+}
+
+.option.incorrect {
+  background: #e63946;
+}
+
+.quiz-container .next-btn,
+.quiz-result .retake-btn {
+  background:black;
+  color: #fff;
+  border: none;
+  padding: 12px 32px;
+  font-size: 20px;
+  text-transform: uppercase;
+  font-weight: bold;
+  letter-spacing: 3px;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.quiz-result {
+  display: none;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  font-family: "Roboto", sans-serif;
+  padding: 16px;
+  max-height:500px;
+  overflow-y:auto;
+  color:#51e351;
+  
+}
+
+.quiz-result .question-container {
+  padding: 12px;
+  border: 1px solid #eeeeee;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.quiz-result .question-container.incorrect {
+  background: #e63946;
+  color: #fff;
+}
+
+.question-number {
+  font-size: 16px;
+  margin-right: 16px;
+  background: #1d3557;
+  color: #fff;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+@media (max-width: 700px) {
+  .quiz-container .options {
+    grid-template-columns: 1fr;
+  }
+}
+
+.start-btn-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-family: "Roboto", Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.start-btn-container h1 {
+  font-size: 40px;
+  margin: 0;
+  padding : 10px;
+  border: 10px;
+}
+
+.start-btn-container .start-btn {
+  background: #e63946;
+  color: #fff;
+  padding: 8px 32px;
+  border-radius: 8px;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.scrollable
+    {
+      max-height:1000%;
+      overflow:auto;
+    }
+
+    .certificate {
+      color: green;
+      font-weight: bold;
+      margin-top: 50px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 18px;
+    }
+    
+    .fail-message {
+      color: rgb(230, 71, 8);
+      font-weight: bold;
+      margin-top: 20px;
+      font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+      font-size: 15px;
+    }
+
+
+
+
+    .certificate-container {
+      position: fixed; /* Use fixed positioning to cover the entire screen */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* Ensure it appears above other content */
+  }
+  
+  .certificate-box {
+    border: 20px solid #000; /* Add a visible border */
+    padding: 60px; /* More padding for spacious layout */
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    background-color: white;
+    box-shadow: none; /* Optional: remove shadow if not needed */
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    box-sizing: border-box;
+    font-size:20px;
+    border-color: #4CAF50;
+    border-width: 20px;
+}
+
+  
+  .certificate-box h1 {
+      color: #4CAF50;
+      font-size: 40px;
+      margin-bottom: 30px;
+  }
+  
+  .certificate-box p {
+      font-size: 25px;
+      margin: 15px 0;
+  }
+  
+
+
+
+    
+      
+
+
+
+    
+
+
